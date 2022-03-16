@@ -1,6 +1,26 @@
 # Case-Study-AdventureWorks
 
-AdventureWorks sells bicycles and bicycle parts directly to customers and distributors. The company currently has a single office in the Netherlands, and have been selling bicycles in the United States, Germany and Spain through a chain of distributors and through online sales on its website. The fulfilment of delivery is done by local distribution centers.
+Buisness Problem: A company XYZ wants to work on the database for its visiting customers and it is trying to analyse the year to date total revenue based on the database of retail sales data called adventure works. For this particular idea, company wants to use only customer, individual and credit card details. These datasets comprise of bulk and raw data that needs to be transformed and cleaned in order to bring out the data for analytics purpose and getting the insights out of it.
+
+**Approach:**
+
+Data is present in MySQL database.
+
+Load the data from MySQL to HDFS using SQOOP.
+
+Create and load data to HIVE table.
+
+Read data from HIVE in Spark and perform data cleaning.
+
+Load the data again to hive and perform analytics.
+
+**HDFS EcoSystem**
+
+•	Sqoop
+•	Hive
+•	Spark
+•	PySpark
+
 
 **Individual Table Definition**
 
@@ -25,4 +45,7 @@ The CreditCard table is contained in the Sales schema.
 
 The first task is to load the AdventureWorks Database from SQL Server to the Hadoop platform. This database contains data of finance, sales, products and customers of the bicycle store. This shifting of data is done by using Apache Sqoop. It is an open source tool used to transfer bulk of data from structured data stores like relational databases such as Teradata, Netezza, Oracle, MySQL, Postgres, and HSQLDB. After transferring the data, queries are fired for insertion of tables in Hive. Hive is data warehouse which is a component of Hadoop that processes the data. It is used for summarizing the big data making it easy for querying and analyzing. It is provides a language similar to SQL called HiveQL or HQL for processing the data on it.
 
+**Project Architecture**
+
+![image](https://user-images.githubusercontent.com/100192347/158651279-78c6a82c-730f-4bc1-a8bf-f931742dfecf.png)
 
