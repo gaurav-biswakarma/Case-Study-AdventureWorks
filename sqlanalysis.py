@@ -1,3 +1,54 @@
+#JOins
+
+create view customer_individual as select a.CustomerID,a.TerritoryID,a.AccountNumber,a.CustomerType,a.ModifiedDate,b.Demographics from customer a , 
+individual b where a.CustomerID = b.CustomerID;
+
+#Sqoop import command
+
+sqoop import --connect jdbc:mysql://localhost:3306/adventureworks?useSSL=False --username root 
+            --password-file file:///home/saif/LFS/cohort_c9/envvar/sqoop.pwd --delete-target-dir --target-dir /user/saif/HFS/Input/adventureworks 
+                --query "select CustomerID,TerritoryID,AccountNumber,CustomerType,ModifiedDate,Demographics from customer_individual \
+where \$CONDITIONS" --split-by CustomerID
+
+sqoop import --connect jdbc:mysql://localhost:3306/adventureworks?useSSL=False --username root 
+            --password-file file:///home/saif/LFS/cohort_c9/envvar/sqoop.pwd --delete-target-dir --target-dir /user/saif/HFS/Input/adventureworks 
+                --query "select CreditCardID,CardType,CardNumber,ExpMonth,ExpYear,ModifiedDate from creditcard \
+where \$CONDITIONS" -m 1
+
+
+
+#Hive manage table 
+
+create table cust_indi(CustomerID int,TerritoryID int,AccountNumber string,CustomerType string,ModifiedDate timestamp,Demographics string) 
+row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1") ;
+
+#HIve table for creditcard
+
+create table credit_hive(CreditCardID  int,CardType string,CardNumber bigint,ExpMonth int,ExpYear int,ModifiedDate timestamp ) 
+row format delimited fields terminated by ','  tblproperties("skip.header.line.count"="1");
+
+
+load data inpath "/user/saif/HFS/Input/adventureworks/" into table credit_hive;
+
+#Load data in manage table
+
+load data inpath "/user/saif/HFS/Input/adventureworks/" into table cust_indi;
+
+
+#Load data in new table from manage table
+
+create table ext_cust as select customerid,territoryid,accountnumber,customertype,modifieddate,xpath(demographics,'IndividualSurvey/TotalPurchaseYTD/text()'),
+xpath(demographics,'IndividualSurvey/DateFirstPurchase/text()'),xpath(demographics,'IndividualSurvey/BirthDate/text()'),
+xpath(demographics,'IndividualSurvey/MaritalStatus/text()'),xpath(demographics,'IndividualSurvey/YearlyIncome/text()'),
+xpath(demographics,'IndividualSurvey/Gender/text()'),xpath(demographics,'IndividualSurvey/TotalChildren/text()'),
+xpath(demographics,'IndividualSurvey/NumberChildrenAtHome/text()'),xpath(demographics,'IndividualSurvey/Education/text()'),
+xpath(demographics,'IndividualSurvey/Occupation/text()'),xpath(demographics,'IndividualSurvey/HomeOwnerFlag/text()'),
+xpath(demographics,'IndividualSurvey/NumberCarsOwned/text()'),xpath(demographics,'IndividualSurvey/CommuteDistance/text()') from cust_indi;
+
+
+#Pyspark
+
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, substring
 if __name__ == '__main__':
