@@ -4,15 +4,16 @@ Buisness Problem: A company XYZ wants to work on the database for its visiting c
 
 **Approach:**
 
-Data is present in MySQL database.
+1.	Data is present in MySQL database.
 
-Load the data from MySQL to HDFS using SQOOP.
+2.	Load the data from MySQL to HDFS using SQOOP.
 
-Create and load data to HIVE table.
+3.	Create and load data to HIVE table.
 
-Read data from HIVE in Spark and perform data cleaning.
+4.	Read data from HIVE in Spark and perform data cleaning.
 
-Load the data again to hive and perform analytics.
+5.	Load the data again to hive and perform analytics.
+
 
 **HDFS EcoSystem**
 
