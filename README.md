@@ -48,5 +48,5 @@ The first task is to load the AdventureWorks Database from SQL Server to the Had
 
 **Project Architecture**
 
-![image](https://user-images.githubusercontent.com/100192347/158651279-78c6a82c-730f-4bc1-a8bf-f931742dfecf.png)
+![image](https://user-images.githubusercontent.com/100192347/159216383-aceeb585-2e5a-4e94-b44d-24dccf5cbac3.png)
 
